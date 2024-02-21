@@ -68,6 +68,7 @@ public class GuessNumber
                 }
                 return "Entrada inválida! Valor não está no range.";
             };
+            gameOver = true;
             return "Você excedeu o número máximo de tentativas! Tente novamente.";
         }
         return "Entrada inválida! Não é um número.";
@@ -101,10 +102,11 @@ public class GuessNumber
 
         return $"A máquina escolheu um número de {minRange} à {maxRange}!";
     }
-
+    // "O jogo terminou. Deseja jogar novamente?"
     //4 - Verifique a resposta da jogada
     public string AnalyzePlay()
     {
+        if (gameOver) return "O jogo terminou. Deseja jogar novamente?";
         if (userValue > randomValue) return "Tente um número MENOR";
         if (userValue < randomValue) return "Tente um número MAIOR";
         return "ACERTOU!";
@@ -113,6 +115,13 @@ public class GuessNumber
     //7 - Adicione uma opção para reiniciar o jogo
     public void RestartGame()
     {
-        throw new NotImplementedException();
+        userValue = 0;
+        randomValue = 0;
+        minRange = -100;
+        maxRange = 100;
+        currentAttempts = 0;
+        maxAttempts = 5;
+        difficultyLevel = 1;
+        gameOver = false;
     }
 }
