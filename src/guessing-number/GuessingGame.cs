@@ -66,7 +66,9 @@ public class GuessNumber
     //4 - Verifique a resposta da jogada
     public string AnalyzePlay()
     {
-        throw new NotImplementedException();
+        if (userValue > randomValue) return "Tente um número MENOR";
+        if (userValue < randomValue) return "Tente um número MAIOR";
+        return "ACERTOU!";
     }
 
     //7 - Adicione uma opção para reiniciar o jogo
