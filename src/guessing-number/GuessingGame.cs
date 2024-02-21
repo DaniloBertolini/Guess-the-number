@@ -4,7 +4,7 @@ namespace guessing_number;
 
 public class GuessNumber
 {
-    //In this way we are passing the random number generator by dependency injection
+    //In this way we are passing the random number generator by dependency injection!
     private IRandomGenerator random;
     public GuessNumber() : this(new DefaultRandom()){}
     public GuessNumber(IRandomGenerator obj)
