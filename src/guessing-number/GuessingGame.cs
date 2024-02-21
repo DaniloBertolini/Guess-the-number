@@ -15,6 +15,8 @@ public class GuessNumber
         randomValue = 0;
         minRange = -100;
         maxRange = 100;
+        currentAttempts = 0;
+        maxAttempts = 5;
     }
 
     //user variables
@@ -45,8 +47,10 @@ public class GuessNumber
         bool canConvert = Int32.TryParse(userEntry, out int chosenNumber);
 
         if (!canConvert) return "Entrada inválida! Não é um número.";
+        if (currentAttempts >= maxAttempts) return "Você excedeu o número máximo de tentativas! Tente novamente.";
         if (chosenNumber < minRange || chosenNumber > maxRange) return "Entrada inválida! Valor não está no range.";
         userValue = chosenNumber;
+        currentAttempts++;
         return "Número escolhido!";
     }
 

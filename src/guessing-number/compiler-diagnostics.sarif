@@ -20,9 +20,9 @@
               "resultFile": {
                 "uri": "file:///home/danilo/projetos/eletivas/csharp-032-csharp-exercicio-adivinhe-o-numero/src/guessing-number/GuessingGame.cs",
                 "region": {
-                  "startLine": 36,
+                  "startLine": 38,
                   "startColumn": 19,
-                  "endLine": 36,
+                  "endLine": 38,
                   "endColumn": 24
                 }
               }
