@@ -17,6 +17,7 @@ public class GuessNumber
         maxRange = 100;
         currentAttempts = 0;
         maxAttempts = 5;
+        difficultyLevel = 1;
     }
 
     //user variables
@@ -64,7 +65,23 @@ public class GuessNumber
     //6 - Adicione níveis de dificuldade
     public string RandomNumberWithDifficult()
     {
-        throw new NotImplementedException();
+        switch (difficultyLevel)
+        {
+            case 2:
+                minRange = -500;
+                maxRange = 500;
+                break;
+            case 3:
+                minRange = -1000;
+                maxRange = 1000;
+                break;
+            default:
+                minRange = -100;
+                maxRange = 100;
+                break;
+        }
+
+        return $"A máquina escolheu um número de {minRange} à {maxRange}!";
     }
 
     //4 - Verifique a resposta da jogada
