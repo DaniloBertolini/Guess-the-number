@@ -13,11 +13,17 @@ public class GuessNumber
 
         userValue = 0;
         randomValue = 0;
+        minRange = -100;
+        maxRange = 100;
     }
 
     //user variables
     public int userValue;
     public int randomValue;
+
+    public int minRange;
+
+    public int maxRange;
 
     public int maxAttempts;
     public int currentAttempts;
@@ -39,7 +45,7 @@ public class GuessNumber
         bool canConvert = Int32.TryParse(userEntry, out int chosenNumber);
 
         if (!canConvert) return "Entrada inválida! Não é um número.";
-        if (chosenNumber < -100 || chosenNumber > 100) return "Entrada inválida! Valor não está no range.";
+        if (chosenNumber < minRange || chosenNumber > maxRange) return "Entrada inválida! Valor não está no range.";
         userValue = chosenNumber;
         return "Número escolhido!";
     }
@@ -47,7 +53,8 @@ public class GuessNumber
     //3 - Gere um número aleatório
     public string RandomNumber()
     {
-        throw new NotImplementedException();
+        randomValue = random.GetInt(minRange, maxRange);
+        return "A máquina escolheu um número de -100 à 100!";
     }
 
     //6 - Adicione níveis de dificuldade
