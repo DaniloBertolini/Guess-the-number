@@ -1,99 +1,120 @@
-// using guessing_number.Game;
+using System.Security.Cryptography;
+
 
 namespace guessing_number;
 
 
-class Program
+public class GuessNumber
 {
-    public static bool play = true;
-    static void Main()
+    public GuessNumber() : this(new DefaultRandom()) { }
+    public GuessNumber(IRandomGenerator obj)
     {
-        GuessNumber game = new();
-        GuessNumber.Clear();
-        GuessNumber.ColoringText(GuessNumber.Greet(), ConsoleColor.Green);
+        userValue = 0;
+        randomValue = 0;
+        minRange = -100;
+        maxRange = 100;
+        currentAttempts = 0;
+        maxAttempts = 0;
+        difficultyLevel = 1;
+        gameOver = false;
+    }
 
-        while (play)
+    //user variables
+    public int userValue;
+    public int randomValue;
+
+    public int minRange;
+
+    public int maxRange;
+
+    public int maxAttempts;
+    public int currentAttempts;
+
+    public int difficultyLevel;
+
+    public bool gameOver;
+
+    //1 - Imprima uma mensagem de saudação
+    public static string Greet()
+    {
+        return "------Bem-vindo ao Guessing Game------";
+        // Tente descobrir o número que eu pensei!
+    }
+
+    public bool ChooseNumber(int number)
+    {
+        if (minRange < number && number < maxRange)
         {
-            GuessNumber.ColoringText("\nDigite 1 para jogar ou 0 para encerrar", ConsoleColor.White);
-            string? choise = Console.ReadLine();
-
-            bool canConvertPlay = int.TryParse(choise, out int chosenNumber);
-
-            if (!canConvertPlay)
-            {
-                GuessNumber.Clear();
-                GuessNumber.ColoringText("Não é um número! Precisa ser 0 ou 1!", ConsoleColor.Red);
-                continue;
-            }
-
-            game.RestartGame();
-            switch (chosenNumber)
-            {
-                case 1:
-                    GuessNumber.Clear();
-                    GuessNumber.ColoringText("Escolha a dificuldade: (1, 2, 3)", ConsoleColor.Green);
-                    string? dificultChoise = Console.ReadLine();
-
-                    bool canConvertDificult = int.TryParse(dificultChoise, out int chosenDificult);
-
-                    if (!canConvertDificult) continue;
-
-                    game.NumberWithDifficult(chosenDificult);
-
-                    GuessNumber.Clear();
-                    GuessNumber.ColoringText($"Tente descobrir o número que eu pensei com {game.maxAttempts - game.currentAttempts} tentativas!", ConsoleColor.Yellow);
-
-                    while (game.currentAttempts < game.maxAttempts)
-                    {
-                        GuessNumber.ColoringText($"\nDica: O número estará entre {game.minRange} e {game.maxRange}!", ConsoleColor.Yellow);
-                        GuessNumber.ColoringText($"{game.maxAttempts - game.currentAttempts} tentativas restantes", ConsoleColor.Yellow);
-
-                        string? attempt = Console.ReadLine();
-                        bool canConvertAttempt = Int32.TryParse(attempt, out int attemptNumber);
-
-                        if (!canConvertAttempt)
-                        {
-                            GuessNumber.Clear();
-                            GuessNumber.ColoringText("Entrada inválida! Não é um número.", ConsoleColor.Red);
-                            continue;
-                        }
-
-                        bool withinTheRange = game.ChooseNumber(attemptNumber);
-
-                        if (!withinTheRange)
-                        {
-                            GuessNumber.Clear();
-                            GuessNumber.ColoringText("Entrada inválida! Valor não está no range.", ConsoleColor.Red);
-                            continue;
-                        }
-
-                        string hitMessage = game.AnalyzePlay();
-
-                        if (game.gameOver) break;
-
-                        GuessNumber.Clear();
-                        GuessNumber.ColoringText(hitMessage, ConsoleColor.Red);
-                    }
-
-                    GuessNumber.Clear();
-                    if (game.gameOver)
-                    {
-                        GuessNumber.ColoringText($"Parabéns! Você achou o número secreto!", ConsoleColor.Blue);
-                        break;
-                    }
-                    GuessNumber.ColoringText("Você excedeu o número máximo de tentativas! Tente novamente.", ConsoleColor.Red);
-                    break;
-
-                case 0:
-                    play = false;
-                    break;
-                default:
-                    GuessNumber.Clear();
-                    GuessNumber.ColoringText("Opção não encontrada! Precisa ser 0 ou 1", ConsoleColor.Red);
-                    continue;
-            }
+            userValue = number;
+            currentAttempts++;
+            return true;
         }
-        GuessNumber.Clear();
-        GuessNumber.ColoringText("Obrigado por jogar Guessing Game!", ConsoleColor.DarkCyan);
+        // gameOver = true;
+        return false;
+    }
+
+    public void RandomNumber()
+    {
+        randomValue = RandomNumberGenerator.GetInt32(minRange, maxRange);
+    }
+
+    public void NumberWithDifficult(int number)
+    {
+        switch (number)
+        {
+            case 2:
+                minRange = -500;
+                maxRange = 500;
+                maxAttempts = 20;
+                break;
+            case 3:
+                minRange = -1000;
+                maxRange = 1000;
+                maxAttempts = 30;
+                break;
+            default:
+                minRange = -100;
+                maxRange = 100;
+                maxAttempts = 10;
+                break;
+        }
+        RandomNumber();
+    }
+
+    public string AnalyzePlay()
+    {
+        if (userValue > randomValue) return $"Tente um número MENOR que {userValue}";
+        if (userValue < randomValue) return $"Tente um número MAIOR que {userValue}";
+        gameOver = true;
+        return "ACERTOU";
+    }
+
+    public void RestartGame()
+    {
+        userValue = 0;
+        randomValue = 0;
+        minRange = -100;
+        maxRange = 100;
+        currentAttempts = 0;
+        maxAttempts = 5;
+        difficultyLevel = 1;
+        gameOver = false;
+    }
+
+    static public void Clear()
+    {
+        Console.Clear();
+    }
+
+    static public void Log(string text)
+    {
+        Console.WriteLine(text);
+    }
+
+    static public void ColoringText(string text, ConsoleColor color)
+    {
+        Console.ForegroundColor = color;
+        Log(text);
+        Console.ResetColor();
     }
 }
