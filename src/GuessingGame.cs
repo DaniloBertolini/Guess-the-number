@@ -11,8 +11,8 @@ public class GuessNumber
     {
         userValue = 0;
         randomValue = 0;
-        minRange = -100;
-        maxRange = 100;
+        minRange = 0;
+        maxRange = 0;
         currentAttempts = 0;
         maxAttempts = 0;
         difficultyLevel = 1;
@@ -60,19 +60,19 @@ public class GuessNumber
         switch (number)
         {
             case 2:
-                minRange = -500;
-                maxRange = 500;
-                maxAttempts = 20;
+                minRange = 0;
+                maxRange = 2000;
+                maxAttempts = 15;
                 break;
             case 3:
-                minRange = -1000;
-                maxRange = 1000;
-                maxAttempts = 30;
+                minRange = 0;
+                maxRange = 2000;
+                maxAttempts = 10;
                 break;
             default:
-                minRange = -100;
-                maxRange = 100;
-                maxAttempts = 10;
+                minRange = 0;
+                maxRange = 2000;
+                maxAttempts = 20;
                 break;
         }
         RandomNumber();
