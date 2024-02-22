@@ -34,11 +34,9 @@ public class GuessNumber
 
     public bool gameOver;
 
-    //1 - Imprima uma mensagem de saudação
     public static string Greet()
     {
         return "------Bem-vindo ao Guessing Game------";
-        // Tente descobrir o número que eu pensei!
     }
 
     public bool ChooseNumber(int number)
@@ -49,7 +47,6 @@ public class GuessNumber
             currentAttempts++;
             return true;
         }
-        // gameOver = true;
         return false;
     }
 

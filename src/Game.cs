@@ -1,5 +1,3 @@
-// using guessing_number.Game;
-
 namespace guessing_number;
 
 
