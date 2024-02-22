@@ -1,22 +1,21 @@
+using System.Security.Cryptography;
+
+
 using System;
 
 namespace guessing_number;
 
 public class GuessNumber
 {
-    //In this way we are passing the random number generator by dependency injection!
-    private IRandomGenerator random;
     public GuessNumber() : this(new DefaultRandom()){}
     public GuessNumber(IRandomGenerator obj)
     {
-        this.random = obj;
-
         userValue = 0;
         randomValue = 0;
         minRange = -100;
         maxRange = 100;
         currentAttempts = 0;
-        maxAttempts = 5;
+        maxAttempts = 15;
         difficultyLevel = 1;
         gameOver = false;
     }
@@ -37,25 +36,14 @@ public class GuessNumber
     public bool gameOver;
 
     //1 - Imprima uma mensagem de saudação
-    public string Greet()
+    public static string Greet()
     {
-        return "---Bem-vindo ao Guessing Game--- /n Para começar, tente adivinhar o número que eu pensei, entre -100 e 100!";
+        return "------Bem-vindo ao Guessing Game------\nTente descobrir o número que eu pensei!";
     }
 
-    //2 - Receba a entrada da pessoa usuária e converta para Int
-    //5 - Adicione um limite de tentativas
     public string ChooseNumber(string userEntry)
     {
         bool canConvert = Int32.TryParse(userEntry, out int chosenNumber);
-
-        // if (!canConvert) return "Entrada inválida! Não é um número.";
-        // if (currentAttempts >= maxAttempts) {
-        //     return "Você excedeu o número máximo de tentativas! Tente novamente."
-        // };
-        // if (chosenNumber < minRange || chosenNumber > maxRange) return "Entrada inválida! Valor não está no range.";
-        // userValue = chosenNumber;
-        // currentAttempts++;
-        // return "Número escolhido!";
         if (canConvert)
         {
             if (currentAttempts < maxAttempts)
@@ -74,17 +62,14 @@ public class GuessNumber
         return "Entrada inválida! Não é um número.";
     }
 
-    //3 - Gere um número aleatório
-    public string RandomNumber()
+    public void RandomNumber()
     {
-        randomValue = random.GetInt(minRange, maxRange);
-        return "A máquina escolheu um número de -100 à 100!";
+        randomValue = RandomNumberGenerator.GetInt32(minRange, maxRange);
     }
 
-    //6 - Adicione níveis de dificuldade
-    public string RandomNumberWithDifficult()
+    public void NumberWithDifficult(int number)
     {
-        switch (difficultyLevel)
+        switch (number)
         {
             case 2:
                 minRange = -500;
@@ -99,11 +84,11 @@ public class GuessNumber
                 maxRange = 100;
                 break;
         }
+        RandomNumber();
 
-        return $"A máquina escolheu um número de {minRange} à {maxRange}!";
+        Console.WriteLine($"O número estará entre {minRange} e {maxRange}!");
     }
-    // "O jogo terminou. Deseja jogar novamente?"
-    //4 - Verifique a resposta da jogada
+
     public string AnalyzePlay()
     {
         if (gameOver) return "O jogo terminou. Deseja jogar novamente?";
@@ -112,7 +97,6 @@ public class GuessNumber
         return "ACERTOU!";
     }
 
-    //7 - Adicione uma opção para reiniciar o jogo
     public void RestartGame()
     {
         userValue = 0;
@@ -125,3 +109,52 @@ public class GuessNumber
         gameOver = false;
     }
 }
+
+class Program
+{
+    public static bool play = true;
+    static void Main()
+    {
+        GuessNumber game = new();
+        Console.WriteLine(GuessNumber.Greet());
+
+        while (play)
+        {
+            Console.WriteLine("\nDigite 1 para jogar ou 0 para encerrar");
+            string? choise = Console.ReadLine();
+            bool canConvert = Int32.TryParse(choise, out int chosenNumber);
+
+            if (!canConvert) {
+                Console.WriteLine("Não é um número! Precisa ser 0 ou 1!");
+                continue;
+            }
+
+            switch (chosenNumber)
+            {
+                case 1:
+                    Console.WriteLine("Escolha a dificuldade: (1, 2, 3)");
+                    string? dificultChoise = Console.ReadLine();
+                    bool canConvert1 = Int32.TryParse(dificultChoise, out int chosenDificult);
+
+                    if (!canConvert1) {
+                        Console.WriteLine("Precisa ser um número!");
+                        break;
+                    }
+
+                    game.NumberWithDifficult(chosenDificult);
+                    while (game.currentAttempts < game.maxAttempts) {}
+                    break;
+                    
+                case 0:
+                    play = false;
+                    break;
+                default:
+                    Console.WriteLine("Opção não encontrada! Precisa ser 0 ou 1");
+                    continue;
+            }
+        }
+
+        Console.WriteLine("Obrigado por jogar!");
+    }
+}
+
