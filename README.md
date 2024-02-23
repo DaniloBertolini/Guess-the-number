@@ -1,6 +1,6 @@
-# Adivinhe o Número
+# :1234: Adivinhe o Número
 
-Boas-vindas ao repositório do exercício `Adivinhe o Número`
+Boas-vindas ao jogo `Adivinhe o Número`
 
 As regras do jogo são bem simples:
 - A máquina escolhe um número aleatório;
@@ -11,15 +11,21 @@ As regras do jogo são bem simples:
 ## :bomb: Tecnologias
 - [C#](https://learn.microsoft.com/pt-br/dotnet/csharp/)
 
+## :bulb: Funcionalidades
+- Validação se o parâmetro é um número
+- Validação se o parâmetro está nas opções descritas
+- Caso ganhe, o jogo é finalizado e volta no começo
+- Caso não acerte, o jogo dará dicas
+
 ## :books: Como acessar
-Para acessar o jogo, pode seguir os passos a passos abaixo.
+Para acessar o jogo, siga os passos a passos abaixo.
   - Abra o terminal e faça o clone.
   ```bash
     git clone git@github.com:DaniloBertolini/Guess-the-number.git
   ```
   - Entre na pasta `src`
   ```bash
-    entre na pasta Guess-the-number/src
+    cd Guess-the-number/src
   ```
   - Restaure as dependências e ferramentas de um projeto 
   ```bash
