@@ -1,6 +1,6 @@
 # :1234: Adivinhe o Número
 
-Boas-vindas ao jogo `Adivinhe o Número`
+![bemvindo](https://github.com/DaniloBertolini/Guess-the-number/assets/49735033/94ddccf4-6611-4511-9808-4b266e80cf49)
 
 As regras do jogo são bem simples:
 - A máquina escolhe um número aleatório;
