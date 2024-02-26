@@ -21,7 +21,7 @@ As regras do jogo são bem simples:
 Para acessar o jogo, siga os passos a passos abaixo.
   - Abra o terminal e faça o clone.
   ```bash
-    git clone git@github.com:DaniloBertolini/Guess-the-number.git
+    git clone https://github.com/DaniloBertolini/Guess-the-number.git
   ```
   - Entre na pasta `src`
   ```bash
