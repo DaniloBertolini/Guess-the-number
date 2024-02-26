@@ -33,7 +33,7 @@ Para acessar o jogo, siga os passos a passos abaixo.
   ```
   - Execute o jogo. 
   ```bash
-    dotnet run
+    dotnet run --project src/guessing-number.csproj
   ```
 
   - Se divita! :sunglasses:
