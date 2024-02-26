@@ -23,9 +23,9 @@ Para acessar o jogo, siga os passos a passos abaixo.
   ```bash
     git clone https://github.com/DaniloBertolini/Guess-the-number.git
   ```
-  - Entre na pasta `src`
+  - Entre na pasta `Guess-the-number`
   ```bash
-    cd Guess-the-number/src
+    cd Guess-the-number
   ```
   - Restaure as dependências e ferramentas de um projeto 
   ```bash
